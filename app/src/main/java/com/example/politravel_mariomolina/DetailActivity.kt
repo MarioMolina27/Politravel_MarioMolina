@@ -73,6 +73,8 @@ class DetailActivity : AppCompatActivity() {
         changeViewDimensions(line1,newWidthLine,4)
         changeViewDimensions(line2,newWidthLine,4)
 
+        val secondFragment = supportFragmentManager.findFragmentById(R.id.FgrMaps) as MapsFragment?
+        secondFragment?.recivePaquet(paquet)
     }
 
     fun changeViewDimensions(view: View, widthDp: Int, heightDp: Int) {
