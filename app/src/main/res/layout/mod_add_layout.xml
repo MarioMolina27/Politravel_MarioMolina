@@ -72,58 +72,71 @@
                 app:layout_constraintTop_toBottomOf="@+id/btnAddPrincipalImg"
                 android:src="@drawable/ic_baseline_add_24"/>
 
-            <TextView
-                android:id ="@+id/txtNomPaquetAdd"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/txtImatgeSecundariaAdd"
-                app:layout_constraintLeft_toLeftOf="parent"
-                android:text="Nom Paquet"
-                android:fontFamily="@font/lexendex_light"
-                android:textColor="@color/eerie_black"
-                android:layout_marginTop="100dp"
-                android:layout_marginLeft="20dp"
-                android:textSize="16sp"/>
-            <EditText
-                android:id="@+id/edtxtNomPaquet"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:textColor="@color/eerie_black"
-                app:layout_constraintTop_toBottomOf="@+id/txtNomPaquetAdd"
-                app:layout_constraintLeft_toLeftOf="parent"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/rounded_edittxt"/>
-            <TextView
-                android:id ="@+id/txtPreuAdd"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/txtImatgeSecundariaAdd"
-                app:layout_constraintRight_toRightOf="parent"
-                android:text="Preu"
-                android:fontFamily="@font/lexendex_light"
-                android:textColor="@color/eerie_black"
-                android:layout_marginTop="100dp"
-                android:layout_marginRight="100dp"
-                android:textSize="16sp"/>
 
-            <EditText
-                android:id="@+id/edtxtPreu"
-                android:layout_width="100dp"
+            <LinearLayout
+                android:id="@+id/layNomDuracioText"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginRight="44dp"
-                android:background="@drawable/rounded_edittxt"
-                android:textColor="@color/eerie_black"
-                app:layout_constraintRight_toRightOf="parent"
-                android:inputType="number"
-                app:layout_constraintTop_toBottomOf="@+id/txtNomPaquetAdd" />
+                app:layout_constraintTop_toBottomOf="@+id/btnAddSecundariaImg"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="40dp"
+                android:layout_marginHorizontal="15dp">
+                <TextView
+                    android:id ="@+id/txtNomPaquetAdd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/txtImatgeSecundariaAdd"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:text="Nom Paquet"
+                    android:fontFamily="@font/lexendex_light"
+                    android:textColor="@color/eerie_black"
+                    android:textSize="16sp"/>
+                <TextView
+                    android:id="@+id/txtDuracioAdd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/lexendex_light"
+                    android:text="Duració"
+                    android:textColor="@color/eerie_black"
+                    android:layout_marginLeft="78dp"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layNomDuracio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/layNomDuracioText"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:orientation="horizontal"
+                android:layout_marginHorizontal="15dp">
+                <EditText
+                    android:id="@+id/edtxtNomPaquet"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:hint="Nom del Paquet"
+                    android:maxLines="1"
+                    android:background="@drawable/rounded_edittxt"
+                    android:layout_marginRight="5dp"
+                    android:textColor="@color/black"/>
+                <EditText
+                    android:id="@+id/edtxtDuracio"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:maxLines="1"
+                    android:textColor="@color/black"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_edittxt"
+                    android:layout_marginLeft="5dp"/>
+            </LinearLayout>
 
             <TextView
                 android:id ="@+id/txtTransportAdd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/edtxtNomPaquet"
+                app:layout_constraintTop_toBottomOf="@+id/layNomDuracio"
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:text="Transport"
                 android:fontFamily="@font/lexendex_light"
@@ -134,37 +147,12 @@
 
             <Spinner
                 android:id="@+id/lstTransport"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txtTransportAdd" />
-
-            <TextView
-                android:id="@+id/txtDuracioAdd"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="52dp"
-                android:layout_marginRight="68dp"
-                android:fontFamily="@font/lexendex_light"
-                android:text="Duració"
-                android:textColor="@color/eerie_black"
-                android:textSize="16sp"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edtxtPreu" />
-
-            <EditText
-                android:id="@+id/edtxtDuracio"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginRight="44dp"
-                android:inputType="number"
-                android:background="@drawable/rounded_edittxt"
-                android:textColor="@color/eerie_black"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtDuracioAdd" />
 
             <TextView
                 android:id ="@+id/txtDescripcioAdd"
