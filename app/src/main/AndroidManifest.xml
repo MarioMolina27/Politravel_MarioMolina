@@ -38,7 +38,8 @@
         </activity>
         <activity
             android:name=".AddActivity"
-            android:exported="false">
+            android:exported="false"
+            android:windowSoftInputMode="stateVisible|adjustPan">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

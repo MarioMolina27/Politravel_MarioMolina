@@ -1,13 +1,11 @@
 package com.example.politravel_mariomolina
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.ListView
-import android.widget.Spinner
+import android.view.LayoutInflater
+import android.widget.*
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 
 class AddActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,7 +35,22 @@ class AddActivity : AppCompatActivity() {
 
         btnAddItinerari.setOnClickListener()
         {
+            val myDialogView = LayoutInflater.from(this).inflate(R.layout.dialog_input,null)
 
+            val myBuilder = AlertDialog.Builder(this)
+                .setView(myDialogView)
+            val myAlertDialog = myBuilder.show()
+            myAlertDialog.getWindow()?.setBackgroundDrawableResource(android.R.color.transparent)
+            val btnGuardar =myDialogView.findViewById<Button>(R.id.btnGuardarNouItinerari)
+            val cardDialog = myDialogView.findViewById<CardView>(R.id.cardDialog)
+            val dialogNomIter =myDialogView.findViewById<EditText>(R.id.dialogNomIter)
+            val dialogLatitudIter =myDialogView.findViewById<EditText>(R.id.dialogLatitudIter)
+            val dialogLongitudIter =myDialogView.findViewById<EditText>(R.id.dialogLongitudIter)
+
+            btnGuardar.setOnClickListener()
+            {
+                myAlertDialog.dismiss()
+            }
         }
 
     }
