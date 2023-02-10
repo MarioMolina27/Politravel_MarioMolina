@@ -179,6 +179,29 @@
                 android:background="@drawable/rounded_edittxt"/>
 
             <TextView
+                android:id ="@+id/txtZoomMaps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/edtxtDescripcio"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:text="Graus Google Maps"
+                android:fontFamily="@font/lexendex_light"
+                android:textColor="@color/eerie_black"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="20dp"
+                android:textSize="16sp"/>
+            <EditText
+                android:id="@+id/edtxtZoomMaps"
+                android:textColor="@color/eerie_black"
+                app:layout_constraintTop_toBottomOf="@+id/txtZoomMaps"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="5dp"
+                android:inputType="numberDecimal"
+                android:background="@drawable/rounded_edittxt"/>
+            <TextView
                 android:id="@+id/txtTitleItinerariAdd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -190,12 +213,12 @@
                 android:textSize="25sp"
                 android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edtxtDescripcio" />
+                app:layout_constraintTop_toBottomOf="@+id/edtxtZoomMaps" />
 
-            <androidx.recyclerview.widget.RecyclerView
+            <ListView
                 android:id="@+id/lstItinerariAdd"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="500dp"
                 android:layout_marginTop="20dp"
                 android:fillViewport="true"
                 app:layout_constraintLeft_toLeftOf="parent"
