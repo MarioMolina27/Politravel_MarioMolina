@@ -211,6 +211,7 @@
                 app:layout_constraintTop_toBottomOf="@id/txtTitleMaps"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent">
+
                 <fragment
                     android:id="@+id/FgrMaps"
                     android:layout_width="match_parent"

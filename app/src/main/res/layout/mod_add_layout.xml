@@ -228,7 +228,7 @@
                 android:id="@+id/btnAddItinerari"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginHorizontal="20dp"
+                android:layout_marginHorizontal="15dp"
                 android:text="+"
                 android:textSize="40dp"
                 app:layout_constraintLeft_toLeftOf="parent"

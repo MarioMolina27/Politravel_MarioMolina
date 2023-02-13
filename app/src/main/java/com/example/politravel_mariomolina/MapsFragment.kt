@@ -34,7 +34,9 @@ class MapsFragment() : Fragment() {
         {
             googleMap.addMarker(MarkerOptions().position(LatLng(itinerari.latitud,itinerari.longitud)).title(itinerari.nom))
         }
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(inici,paquet.grausGoogleMaps))
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(inici,
+            paquet.grausGoogleMaps.toFloat()
+        ))
     }
 
     override fun onCreateView(

@@ -60,7 +60,8 @@
                 android:textColor="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/dialogNomIter" />
+                app:layout_constraintTop_toBottomOf="@id/dialogNomIter"
+                android:inputType="numberDecimal"/>
 
             <EditText
                 android:id="@+id/dialogLongitudIter"
@@ -73,7 +74,8 @@
                 android:textColor="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/dialogLatitudIter" />
+                app:layout_constraintTop_toBottomOf="@id/dialogLatitudIter"
+                android:inputType="numberDecimal"/>
 
             <Button
                 android:id="@+id/btnGuardarNouItinerari"
