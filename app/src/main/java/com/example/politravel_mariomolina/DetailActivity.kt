@@ -18,17 +18,13 @@ import com.google.android.material.imageview.ShapeableImageView
 
 class DetailActivity : AppCompatActivity() {
 
-    object paquetConstants
-    {
-        const val  PAQUET = "PAQUET"
-        const val  RETORN = "RETORN"
-    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
 
         val intent = getIntent()
-        val paquet = intent.getSerializableExtra(paquetConstants.PAQUET) as Paquet
+        val paquet = intent.getSerializableExtra(MainActivity.paquetConstants.PAQUET) as Paquet
         val imgDetailTrip = findViewById<ImageView>(R.id.imgDetailTrip)
         val imgPath = getFilesDir().toString()+ "/img/"+paquet.imgDetail
         val bitmap = BitmapFactory.decodeFile(imgPath)

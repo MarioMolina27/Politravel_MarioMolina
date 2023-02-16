@@ -52,6 +52,7 @@ class MapsFragment() : Fragment() {
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
     }
+
     fun recivePaquet(paquet: Paquet) {
         this.paquet = paquet
     }

@@ -12,6 +12,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
+
+    object paquetConstants
+    {
+        const val  PAQUET = "PAQUET"
+        const val  RETORN = "RETORN"
+        const val  IMG = "IMG"
+        const val ADD_TO_IMG = "ADD_TO_IMG"
+        const val  IMAGE_BUTTON = "IMG_MAIN"
+    }
     private var paquets = mutableListOf<Paquet>()
     private val getResult =
         registerForActivityResult(
@@ -19,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         {
             val lstPaquets = findViewById<RecyclerView>(R.id.lstPaquets)
             if(it.resultCode == RESULT_OK){
-                val paquet = it.data?.getSerializableExtra(DetailActivity.paquetConstants.RETORN) as Paquet
+                val paquet = it.data?.getSerializableExtra(paquetConstants.RETORN) as Paquet
                 paquets.add(paquet)
                 lstPaquets.adapter?.notifyDataSetChanged()
             }
@@ -53,7 +62,7 @@ class MainActivity : AppCompatActivity() {
         {
             val intent = Intent(this,DetailActivity::class.java)
             val paquet = paquets[lstPaquets.getChildAdapterPosition(it)]
-            intent.putExtra(DetailActivity.paquetConstants.PAQUET,paquet)
+            intent.putExtra(paquetConstants.PAQUET,paquet)
             startActivity(intent)
         }
     }
