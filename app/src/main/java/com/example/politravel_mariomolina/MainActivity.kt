@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
         const val  IMG = "IMG"
         const val ADD_TO_IMG = "ADD_TO_IMG"
         const val  IMAGE_BUTTON = "IMG_MAIN"
+        const val IS_NEW = "IS_NEW"
     }
     private var paquets = mutableListOf<Paquet>()
     private val getResult =
@@ -64,6 +65,16 @@ class MainActivity : AppCompatActivity() {
             val paquet = paquets[lstPaquets.getChildAdapterPosition(it)]
             intent.putExtra(paquetConstants.PAQUET,paquet)
             startActivity(intent)
+        }
+
+        adapter.setOnLongClickListener()
+        {
+            val intent = Intent(this,AddActivity::class.java)
+            val paquet = paquets[lstPaquets.getChildAdapterPosition(it)]
+            intent.putExtra(paquetConstants.PAQUET,paquet)
+            intent.putExtra(paquetConstants.IS_NEW,false)
+            startActivity(intent)
+            true
         }
     }
 

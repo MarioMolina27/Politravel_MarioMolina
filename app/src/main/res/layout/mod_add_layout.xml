@@ -14,12 +14,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbarAdd"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            >
             <TextView
                 android:id ="@+id/txtImatgePrincipalAdd"
                 android:layout_width="wrap_content"
@@ -44,7 +46,7 @@
                 android:layout_marginLeft="50dp"
                 android:scaleType="fitXY"
                 android:background="@drawable/rounded_imgbtn"
-                android:src="@drawable/islasgriegas"
+                android:src="@drawable/ic_baseline_add_24"
                 app:shapeAppearance="@style/ImageRounded"
                 android:clickable="true"
                 />
@@ -220,12 +222,11 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/edtxtZoomMaps" />
 
-            <ListView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/lstItinerariAdd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:fillViewport="true"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/txtTitleItinerariAdd"/>
@@ -256,7 +257,7 @@
                 android:fontFamily="@font/mplus1p_regular"
                 android:textStyle="bold"
                 android:drawableRight="@drawable/flecha"
-                android:gravity="left|center_vertical" />
+                android:gravity="left|center_vertical"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

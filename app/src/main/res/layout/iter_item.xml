@@ -29,7 +29,7 @@
                     android:layout_gravity="center"
                     android:text="Roma"
                     android:fontFamily="@font/mplus1p_bold"
-                    android:textColor="@color/lapis_lazuli"
+                    android:textColor="@color/eerie_black"
                     android:textSize="24dp"
                     android:textStyle="bold" />
             </LinearLayout>

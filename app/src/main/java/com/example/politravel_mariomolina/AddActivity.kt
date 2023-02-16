@@ -8,11 +8,15 @@ import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.shape.ShapeAppearanceModel
 
 class AddActivity : AppCompatActivity() {
+
+    private lateinit var imgLlista : String
+    private lateinit var imgDetail : String
     private val getResult =
         registerForActivityResult(
             ActivityResultContracts.StartActivityForResult())
@@ -28,13 +32,13 @@ class AddActivity : AppCompatActivity() {
                 if(activity.equals("PRINCIPAL"))
                 {
                     btnAddPrincipalImg?.setImageBitmap(bitmap)
+                    imgDetail = img
                 }
                 else
                 {
                     btnAddSecundariaImg?.setImageBitmap(bitmap)
+                    imgLlista = img
                 }
-
-
             }
             else if(it.resultCode== RESULT_CANCELED){
                 Toast.makeText(this,"Operació d'afegir dades cancel·lada", Toast.LENGTH_SHORT).show()
@@ -44,33 +48,69 @@ class AddActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.mod_add_layout)
 
+        val intent = getIntent()
+        val isNew = intent.getBooleanExtra(MainActivity.paquetConstants.IS_NEW, true)
+
+        val edtNomPaquet = findViewById<EditText>(R.id.edtxtNomPaquet)
+        val edtDuracio = findViewById<EditText>(R.id.edtxtDuracio)
+        val edtDescripcio = findViewById<EditText>(R.id.edtxtDescripcio)
+        val edtZoom = findViewById<EditText>(R.id.edtxtZoomMaps)
+        val lstItinerariAdd = findViewById<RecyclerView>(R.id.lstItinerariAdd)
+        val btnAddItinerari= findViewById<Button>(R.id.btnAddItinerari)
+        val btnAcceptarNouPaquet = findViewById<Button>(R.id.btnAcceptarNouPaquet)
+        val btnAddPrincipalImg = findViewById<ShapeableImageView>(R.id.btnAddPrincipalImg)
+        val btnAddSecundariaImg = findViewById<ShapeableImageView>(R.id.btnAddSecundariaImg)
+        var paquet: Paquet
+
+
         val transport = mutableListOf<Transport>(
             Transport("---",R.drawable.flecha),
             Transport("Avió",R.drawable.plane),
             Transport("Bus",R.drawable.bus),
             Transport("Tren",R.drawable.train))
 
-        val itinerari = mutableListOf<Itinerari>()
+        var itinerari = mutableListOf<Itinerari>()
 
         val lstTransport = findViewById<Spinner>(R.id.lstTransport)
         val adapter = TransportAdapter(this,R.layout.transport_item,transport)
         lstTransport.adapter=adapter
         adapter.setDropDownViewResource(R.layout.transport_item)
 
-        val edtNomPaquet = findViewById<EditText>(R.id.edtxtNomPaquet)
-        val edtDuracio = findViewById<EditText>(R.id.edtxtDuracio)
-        val edtDescripcio = findViewById<EditText>(R.id.edtxtDescripcio)
-        val edtZoom = findViewById<EditText>(R.id.edtxtZoomMaps)
-        val lstItinerariAdd = findViewById<ListView>(R.id.lstItinerariAdd)
-        val btnAddItinerari= findViewById<Button>(R.id.btnAddItinerari)
-        val btnAcceptarNouPaquet = findViewById<Button>(R.id.btnAcceptarNouPaquet)
-        val btnAddPrincipalImg = findViewById<ImageButton>(R.id.btnAddPrincipalImg)
-        val btnAddSecundariaImg = findViewById<ImageButton>(R.id.btnAddSecundariaImg)
 
+        if(!isNew)
+        {
+            paquet = intent.getSerializableExtra(MainActivity.paquetConstants.PAQUET) as Paquet
+            edtNomPaquet.setText(paquet.nomPaquet)
+            edtDuracio.setText(paquet.dies.toString())
+            edtDescripcio.setText(paquet.descripcio)
+            edtZoom.setText(paquet.grausGoogleMaps.toString())
+            val imgPathDetail = getFilesDir().toString()+ "/img/" + paquet.imgDetail
+            val bitmapDetail = BitmapFactory.decodeFile(imgPathDetail)
+            btnAddPrincipalImg?.setImageBitmap(bitmapDetail)
+            val imgPathLlista = getFilesDir().toString()+ "/img/" + paquet.imgLlista
+            val bitmapLlista = BitmapFactory.decodeFile(imgPathLlista)
+            btnAddSecundariaImg?.setImageBitmap(bitmapLlista)
+            itinerari = paquet.itinerari
 
-        var adapterItinerari = ItinerariAdapter(this,R.layout.iter_item,itinerari)
+            if(paquet.transport.equals("Avio"))
+            {
+                lstTransport.setSelection(1)
+            }
+            else if(paquet.transport.equals("Bus"))
+            {
+                lstTransport.setSelection(2)
+            }
+            else
+            {
+                lstTransport.setSelection(3)
+            }
+        }
+
+        var adapterItinerari = ItinerariAdapter(this,itinerari)
         lstItinerariAdd.adapter=adapterItinerari
-
+        lstItinerariAdd.hasFixedSize()
+        lstItinerariAdd.layoutManager = LinearLayoutManager(this)
+        lstItinerariAdd.adapter=adapterItinerari
 
         // Codi del Dialog per afegir un nou lloc a l'itinerari
         btnAddItinerari.setOnClickListener()
@@ -99,19 +139,18 @@ class AddActivity : AppCompatActivity() {
                     Toast.makeText(this,"Tots els camps han d'estar omplerts per guardar un nou itinerari",Toast.LENGTH_SHORT).show()
                 }
             }
-
-            btnAcceptarNouPaquet.setOnClickListener()
-            {
-                val size = itinerari.size -1
-                val selectedTransport = lstTransport.selectedItem as Transport
-                val paquet = Paquet(1,edtNomPaquet.text.toString(),edtDescripcio.text.toString(),"prueba.jpg","prueba2.jpg",selectedTransport.nom,itinerari[0].nom,itinerari[0].longitud,itinerari[0].latitud,edtZoom.text.toString().toDouble(),itinerari[size].nom,edtDuracio.text.toString().toInt(),itinerari)
-                val intent = Intent(this,MainActivity::class.java)
-                intent.putExtra(MainActivity.paquetConstants.RETORN, paquet)
-                setResult(RESULT_OK,intent)
-                finish()
-            }
         }
-
+        btnAcceptarNouPaquet.setOnClickListener()
+        {
+            val size = itinerari.size -1
+            val selectedTransport = lstTransport.selectedItem as Transport
+            val paquet = Paquet(1,edtNomPaquet.text.toString(),edtDescripcio.text.toString(),imgLlista,imgDetail
+                ,selectedTransport.nom,itinerari[0].nom,itinerari[0].longitud,itinerari[0].latitud,edtZoom.text.toString().toDouble(),itinerari[size].nom,edtDuracio.text.toString().toInt(),itinerari)
+            val intent = Intent(this,MainActivity::class.java)
+            intent.putExtra(MainActivity.paquetConstants.RETORN, paquet)
+            setResult(RESULT_OK,intent)
+            finish()
+        }
         btnAddSecundariaImg.setOnClickListener()
         {
             val intent = Intent(this,GalleryActivity::class.java)

@@ -11,4 +11,21 @@ class Paquet(
     val finalRecorregut: String,
     val dies: Int,
     val itinerari: MutableList<Itinerari>):
-    Serializable
+    Serializable {
+
+    constructor() : this(
+        0,
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        0.0,
+        0.0,
+        0.0,
+        "",
+        0,
+        mutableListOf<Itinerari>()
+    )
+}

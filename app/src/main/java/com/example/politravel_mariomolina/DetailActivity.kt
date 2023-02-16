@@ -36,7 +36,7 @@ class DetailActivity : AppCompatActivity() {
         val txtIniciViatje= findViewById<TextView>(R.id.txtIniciViatje)
         val txtFinalViatje= findViewById<TextView>(R.id.txtFinalViatje)
         val txtDescripcioDetail =  findViewById<TextView>(R.id.txtDescripcioDetail)
-        val lstItinerari =  findViewById<ListView>(R.id.lstItinerari)
+        val lstItinerari =  findViewById<RecyclerView>(R.id.lstItinerari)
 
 
         txtTripNameDetail.text = paquet.nomPaquet
@@ -45,7 +45,9 @@ class DetailActivity : AppCompatActivity() {
         txtFinalViatje.text = paquet.finalRecorregut
         txtDescripcioDetail.text = paquet.descripcio
 
-        var adapter = ItinerariAdapter(this,R.layout.iter_item,paquet.itinerari)
+        var adapter = ItinerariAdapter(this,paquet.itinerari)
+        lstItinerari.hasFixedSize()
+        lstItinerari.layoutManager = LinearLayoutManager(this)
         lstItinerari.adapter=adapter
 
         if(paquet.transport.equals("Avio"))

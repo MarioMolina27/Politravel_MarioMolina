@@ -37,7 +37,7 @@
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/lexendexa_black"
                 android:text="Italia"
-                android:textColor="@color/black"
+                android:textColor="@color/eerie_black"
                 android:textSize="40dp"
                 android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -60,7 +60,7 @@
                 android:layout_marginTop="4dp"
                 android:fontFamily="@font/lexendex_light"
                 android:text="5 dies"
-                android:textColor="@color/black"
+                android:textColor="@color/eerie_black"
                 android:textSize="20sp"
                 app:layout_constraintLeft_toRightOf="@id/clockDetail"
                 app:layout_constraintTop_toBottomOf="@+id/txtTripNameDetail" />
@@ -119,7 +119,7 @@
                 android:layout_marginLeft="42dp"
                 android:layout_marginTop="8dp"
                 android:text="Inici"
-                android:textColor="@color/black"
+                android:textColor="@color/eerie_black"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -132,7 +132,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginRight="42dp"
                 android:text="Final"
-                android:textColor="@color/black"
+                android:textColor="@color/eerie_black"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintRight_toRightOf="parent"
@@ -146,9 +146,9 @@
                 android:layout_marginTop="30dp"
                 android:fontFamily="@font/lexendex_light"
                 android:text="DESCRIPCIÓ PAQUET"
-                android:textColor="@color/lapis_lazuli"
+                android:textColor="@color/eerie_black"
                 android:textSize="25sp"
-                android:textStyle="bold"
+                android:textStyle="bold|italic"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txtIniciViatje" />
 
@@ -160,7 +160,9 @@
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/lexendex_light"
                 android:text=""
-                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textColor="@color/eerie_black"
+
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txtTitleDescrip" />
 
@@ -172,16 +174,16 @@
                 android:layout_marginTop="30dp"
                 android:fontFamily="@font/lexendex_light"
                 android:text="Itinerari"
-                android:textColor="@color/lapis_lazuli"
+                android:textColor="@color/eerie_black"
                 android:textSize="25sp"
-                android:textStyle="bold"
+                android:textStyle="bold|italic"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txtDescripcioDetail" />
 
-            <ListView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/lstItinerari"
                 android:layout_width="match_parent"
-                android:layout_height="500dp"
+                android:layout_height="match_parent"
                 android:layout_marginTop="20dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -195,9 +197,9 @@
                 android:layout_marginTop="30dp"
                 android:fontFamily="@font/lexendex_light"
                 android:text="Mapa"
-                android:textColor="@color/lapis_lazuli"
+                android:textColor="@color/eerie_black"
                 android:textSize="25sp"
-                android:textStyle="bold"
+                android:textStyle="bold|italic"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/lstItinerari" />
             <androidx.cardview.widget.CardView
