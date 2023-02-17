@@ -55,6 +55,7 @@ class AddActivity : AppCompatActivity() {
         supportActionBar?.title = "";
 
         val intent = getIntent()
+        position = -1
         val isNew = intent.getBooleanExtra(Keys.paquetConstants.IS_NEW, true)
         val edtNomPaquet = findViewById<EditText>(R.id.edtxtNomPaquet)
         val edtDuracio = findViewById<EditText>(R.id.edtxtDuracio)

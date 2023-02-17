@@ -37,9 +37,15 @@ class MainActivity : AppCompatActivity() {
                 }
                else
                {
-                   val position = it.data?.getIntExtra(Keys.paquetConstants.POSTION_DELETE_PACKAGE,0)
+                   val position = it.data?.getIntExtra(Keys.paquetConstants.POSTION_DELETE_PACKAGE,-1)
                    if (position != null) {
-                       paquets.removeAt(position)
+                       if (position > -1) {
+                           paquets.removeAt(position)
+                       }
+                       else
+                       {
+                           Toast.makeText(this,"No es pot eliminar un paquet que no està creat",Toast.LENGTH_SHORT).show()
+                       }
                    }
                }
                 lstPaquets.adapter?.notifyDataSetChanged()
