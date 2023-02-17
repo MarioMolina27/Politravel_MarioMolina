@@ -21,19 +21,28 @@ class MainActivity : AppCompatActivity() {
         {
             val lstPaquets = findViewById<RecyclerView>(R.id.lstPaquets)
             if(it.resultCode == RESULT_OK){
-                val paquet = it.data?.getSerializableExtra(Keys.paquetConstants.RETORN) as Paquet
-                val isNew = it.data?.getBooleanExtra(Keys.paquetConstants.IS_NEW_RETORN,true)
-                if(isNew == true)
+                if(it.data?.getBooleanExtra(Keys.paquetConstants.DELETE_PACKAGE,false) == false)
                 {
-                    paquets.add(paquet)
-                    lstPaquets.adapter?.notifyDataSetChanged()
+                    val paquet = it.data?.getSerializableExtra(Keys.paquetConstants.RETORN) as Paquet
+                    val isNew = it.data?.getBooleanExtra(Keys.paquetConstants.IS_NEW_RETORN,true)
+                    if(isNew == true)
+                    {
+                        paquets.add(paquet)
+                    }
+                    else
+                    {
+                        val position = it.data?.getIntExtra(Keys.paquetConstants.RETORN_POSITION,0)
+                        paquets[position!!] = paquet
+                    }
                 }
-                else
-                {
-                    val position = it.data?.getIntExtra(Keys.paquetConstants.RETORN_POSITION,0)
-                    paquets[position!!] = paquet
-                    lstPaquets.adapter?.notifyDataSetChanged()
-                }
+               else
+               {
+                   val position = it.data?.getIntExtra(Keys.paquetConstants.POSTION_DELETE_PACKAGE,0)
+                   if (position != null) {
+                       paquets.removeAt(position)
+                   }
+               }
+                lstPaquets.adapter?.notifyDataSetChanged()
             }
             else if(it.resultCode== RESULT_CANCELED){
                 Toast.makeText(this,"Operació d'afegir dades cancel·lada", Toast.LENGTH_SHORT).show()

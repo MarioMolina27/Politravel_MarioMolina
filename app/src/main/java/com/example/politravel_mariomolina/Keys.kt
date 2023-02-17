@@ -13,5 +13,7 @@ class Keys {
         const val IS_NEW_RETORN = "IS_NEW_RETORN"
         const val SEND_POSITION = "SEND_POSITION"
         const val RETORN_POSITION = "RETORN_POSITION"
+        const val DELETE_PACKAGE = "DELETE_PACKAGE"
+        const val POSTION_DELETE_PACKAGE = "POSITION_DELETE_PACKAGE"
     }
 }

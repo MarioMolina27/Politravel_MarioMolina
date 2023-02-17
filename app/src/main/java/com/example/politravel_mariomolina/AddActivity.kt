@@ -4,6 +4,8 @@ import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
@@ -11,11 +13,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.imageview.ShapeableImageView
+import java.security.Key
+import kotlin.properties.Delegates
 
 class AddActivity : AppCompatActivity() {
 
     private lateinit var imgLlista : String
     private lateinit var imgDetail : String
+    private var position by Delegates.notNull<Int>()
     private val getResult =
         registerForActivityResult(
             ActivityResultContracts.StartActivityForResult())
@@ -46,8 +51,9 @@ class AddActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.mod_add_layout)
+        setSupportActionBar(findViewById(R.id.toolbarAdd))
+        supportActionBar?.title = "";
 
-        var position: Int = 0
         val intent = getIntent()
         val isNew = intent.getBooleanExtra(Keys.paquetConstants.IS_NEW, true)
         val edtNomPaquet = findViewById<EditText>(R.id.edtxtNomPaquet)
@@ -171,5 +177,31 @@ class AddActivity : AppCompatActivity() {
             getResult.launch(intent)
         }
 
+    }
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.mod_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        return when(item.itemId)
+        {
+            R.id.delete ->
+            {
+                val intent = Intent(this,MainActivity::class.java)
+                intent.putExtra(Keys.paquetConstants.DELETE_PACKAGE,true)
+                intent.putExtra(Keys.paquetConstants.POSTION_DELETE_PACKAGE,position)
+                setResult(RESULT_OK,intent)
+                finish()
+                return true
+            }
+            else -> {
+                return true
+            }
+        }
+
+
+        return super.onOptionsItemSelected(item)
     }
 }
