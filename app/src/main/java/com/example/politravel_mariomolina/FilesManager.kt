@@ -1,6 +1,7 @@
 package com.example.politravel_mariomolina
 
 import android.content.Context
+import com.example.politravel_mariomolina.datamodel.Paquet
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.FileReader

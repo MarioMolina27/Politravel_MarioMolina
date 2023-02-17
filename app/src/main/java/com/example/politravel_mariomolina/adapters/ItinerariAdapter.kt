@@ -1,13 +1,13 @@
-package com.example.politravel_mariomolina
+package com.example.politravel_mariomolina.adapters
 
 import android.content.Context
-import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.politravel_mariomolina.datamodel.Itinerari
+import com.example.politravel_mariomolina.R
 
 class ItinerariAdapter(private val context: Context,
                      private val itinerari: MutableList<Itinerari>):

@@ -1,19 +1,18 @@
-package com.example.politravel_mariomolina
+package com.example.politravel_mariomolina.activities
 
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.ListView
 import android.widget.TextView
-import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.imageview.ShapeableImageView
+import com.example.politravel_mariomolina.*
+import com.example.politravel_mariomolina.adapters.ItinerariAdapter
+import com.example.politravel_mariomolina.datamodel.Keys
+import com.example.politravel_mariomolina.datamodel.Paquet
 
 
 class DetailActivity : AppCompatActivity() {

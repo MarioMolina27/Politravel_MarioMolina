@@ -1,4 +1,4 @@
-package com.example.politravel_mariomolina
+package com.example.politravel_mariomolina.activities
 
 import android.content.Intent
 import android.graphics.BitmapFactory
@@ -12,8 +12,14 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.politravel_mariomolina.*
+import com.example.politravel_mariomolina.adapters.ItinerariAdapter
+import com.example.politravel_mariomolina.adapters.TransportAdapter
+import com.example.politravel_mariomolina.datamodel.Itinerari
+import com.example.politravel_mariomolina.datamodel.Keys
+import com.example.politravel_mariomolina.datamodel.Paquet
+import com.example.politravel_mariomolina.datamodel.Transport
 import com.google.android.material.imageview.ShapeableImageView
-import java.security.Key
 import kotlin.properties.Delegates
 
 class AddActivity : AppCompatActivity() {
@@ -70,15 +76,16 @@ class AddActivity : AppCompatActivity() {
 
 
         val transport = mutableListOf<Transport>(
-            Transport("---",R.drawable.flecha),
-            Transport("Avió",R.drawable.plane),
-            Transport("Bus",R.drawable.bus),
-            Transport("Tren",R.drawable.train))
+            Transport("---", R.drawable.flecha),
+            Transport("Avió", R.drawable.plane),
+            Transport("Bus", R.drawable.bus),
+            Transport("Tren", R.drawable.train)
+        )
 
         var itinerari = mutableListOf<Itinerari>()
 
         val lstTransport = findViewById<Spinner>(R.id.lstTransport)
-        val adapter = TransportAdapter(this,R.layout.transport_item,transport)
+        val adapter = TransportAdapter(this, R.layout.transport_item,transport)
         lstTransport.adapter=adapter
         adapter.setDropDownViewResource(R.layout.transport_item)
 
@@ -155,7 +162,7 @@ class AddActivity : AppCompatActivity() {
             val selectedTransport = lstTransport.selectedItem as Transport
             val paquet = Paquet(1,edtNomPaquet.text.toString(),edtDescripcio.text.toString(),imgLlista,imgDetail
                 ,selectedTransport.nom,itinerari[0].nom,itinerari[0].longitud,itinerari[0].latitud,edtZoom.text.toString().toDouble(),itinerari[size].nom,edtDuracio.text.toString().toInt(),itinerari)
-            val intent = Intent(this,MainActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             intent.putExtra(Keys.paquetConstants.RETORN, paquet)
             intent.putExtra(Keys.paquetConstants.IS_NEW_RETORN,isNew)
             if(!isNew)
@@ -167,13 +174,13 @@ class AddActivity : AppCompatActivity() {
         }
         btnAddSecundariaImg.setOnClickListener()
         {
-            val intent = Intent(this,GalleryActivity::class.java)
+            val intent = Intent(this, GalleryActivity::class.java)
             intent.putExtra(Keys.paquetConstants.ADD_TO_IMG,"SECUNDARIA")
             getResult.launch(intent)
         }
         btnAddPrincipalImg.setOnClickListener()
         {
-            val intent = Intent(this,GalleryActivity::class.java)
+            val intent = Intent(this, GalleryActivity::class.java)
             intent.putExtra(Keys.paquetConstants.ADD_TO_IMG,"PRINCIPAL")
             getResult.launch(intent)
         }
@@ -190,7 +197,7 @@ class AddActivity : AppCompatActivity() {
         {
             R.id.delete ->
             {
-                val intent = Intent(this,MainActivity::class.java)
+                val intent = Intent(this, MainActivity::class.java)
                 intent.putExtra(Keys.paquetConstants.DELETE_PACKAGE,true)
                 intent.putExtra(Keys.paquetConstants.POSTION_DELETE_PACKAGE,position)
                 setResult(RESULT_OK,intent)

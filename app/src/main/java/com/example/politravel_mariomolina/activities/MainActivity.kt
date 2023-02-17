@@ -1,14 +1,17 @@
-package com.example.politravel_mariomolina
+package com.example.politravel_mariomolina.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.politravel_mariomolina.*
+import com.example.politravel_mariomolina.adapters.PaquetsAdapter
+import com.example.politravel_mariomolina.datamodel.Keys
+import com.example.politravel_mariomolina.datamodel.Paquet
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
@@ -72,13 +75,13 @@ class MainActivity : AppCompatActivity() {
         val btnAdd = findViewById<FloatingActionButton>(R.id.addButton)
 
         btnAdd.setOnClickListener(){
-            val intent = Intent(this,AddActivity::class.java)
+            val intent = Intent(this, AddActivity::class.java)
             getResult.launch(intent)
         }
 
         adapter.setOnClickListener()
         {
-            val intent = Intent(this,DetailActivity::class.java)
+            val intent = Intent(this, DetailActivity::class.java)
             val paquet = paquets[lstPaquets.getChildAdapterPosition(it)]
             intent.putExtra(Keys.paquetConstants.PAQUET,paquet)
             startActivity(intent)
@@ -86,7 +89,7 @@ class MainActivity : AppCompatActivity() {
 
         adapter.setOnLongClickListener()
         {
-            val intent = Intent(this,AddActivity::class.java)
+            val intent = Intent(this, AddActivity::class.java)
             val paquet = paquets[lstPaquets.getChildAdapterPosition(it)]
             val position = lstPaquets.getChildAdapterPosition(it)
             intent.putExtra(Keys.paquetConstants.PAQUET,paquet)

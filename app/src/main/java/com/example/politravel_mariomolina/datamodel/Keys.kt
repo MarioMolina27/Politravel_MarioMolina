@@ -1,4 +1,4 @@
-package com.example.politravel_mariomolina
+package com.example.politravel_mariomolina.datamodel
 
 class Keys {
 

@@ -1,10 +1,13 @@
-package com.example.politravel_mariomolina
+package com.example.politravel_mariomolina.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.AdapterView
 import android.widget.GridView
+import com.example.politravel_mariomolina.adapters.GalleryAdapter
+import com.example.politravel_mariomolina.datamodel.Keys
+import com.example.politravel_mariomolina.R
 
 class GalleryActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,7 +27,7 @@ class GalleryActivity : AppCompatActivity() {
         grid.onItemClickListener = AdapterView.OnItemClickListener()
         {
             _,_,i,_ ->
-             val intent = Intent(this,AddActivity::class.java)
+             val intent = Intent(this, AddActivity::class.java)
              intent.putExtra(Keys.paquetConstants.IMG,names[i])
              intent.putExtra(Keys.paquetConstants.IMAGE_BUTTON,activity)
              setResult(RESULT_OK,intent)

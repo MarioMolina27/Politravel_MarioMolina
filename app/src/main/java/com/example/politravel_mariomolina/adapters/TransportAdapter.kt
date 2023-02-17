@@ -1,14 +1,14 @@
-package com.example.politravel_mariomolina
+package com.example.politravel_mariomolina.adapters
 
 import android.content.Context
-import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
+import com.example.politravel_mariomolina.R
+import com.example.politravel_mariomolina.datamodel.Transport
 
 class TransportAdapter(context: Context,val layout: Int, val transports: MutableList<Transport>):
     ArrayAdapter<Transport>(context, layout, transports)
