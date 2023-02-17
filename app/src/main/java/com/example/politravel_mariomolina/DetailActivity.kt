@@ -24,7 +24,7 @@ class DetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_detail)
 
         val intent = getIntent()
-        val paquet = intent.getSerializableExtra(MainActivity.paquetConstants.PAQUET) as Paquet
+        val paquet = intent.getSerializableExtra(Keys.paquetConstants.PAQUET) as Paquet
         val imgDetailTrip = findViewById<ImageView>(R.id.imgDetailTrip)
         val imgPath = getFilesDir().toString()+ "/img/"+paquet.imgDetail
         val bitmap = BitmapFactory.decodeFile(imgPath)

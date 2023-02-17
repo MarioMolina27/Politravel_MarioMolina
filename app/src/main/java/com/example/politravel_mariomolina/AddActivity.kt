@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.imageview.ShapeableImageView
-import com.google.android.material.shape.ShapeAppearanceModel
 
 class AddActivity : AppCompatActivity() {
 
@@ -25,8 +24,8 @@ class AddActivity : AppCompatActivity() {
             val btnAddSecundariaImg = findViewById<ShapeableImageView>(R.id.btnAddSecundariaImg)
 
             if(it.resultCode == RESULT_OK){
-                val img = it.data?.getStringExtra(MainActivity.paquetConstants.IMG) as String
-                val activity = it.data?.getStringExtra(MainActivity.paquetConstants.IMAGE_BUTTON) as String
+                val img = it.data?.getStringExtra(Keys.paquetConstants.IMG) as String
+                val activity = it.data?.getStringExtra(Keys.paquetConstants.IMAGE_BUTTON) as String
                 val imgPath = getFilesDir().toString()+ "/img/" + img
                 val bitmap = BitmapFactory.decodeFile(imgPath)
                 if(activity.equals("PRINCIPAL"))
@@ -48,9 +47,9 @@ class AddActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.mod_add_layout)
 
+        var position: Int = 0
         val intent = getIntent()
-        val isNew = intent.getBooleanExtra(MainActivity.paquetConstants.IS_NEW, true)
-
+        val isNew = intent.getBooleanExtra(Keys.paquetConstants.IS_NEW, true)
         val edtNomPaquet = findViewById<EditText>(R.id.edtxtNomPaquet)
         val edtDuracio = findViewById<EditText>(R.id.edtxtDuracio)
         val edtDescripcio = findViewById<EditText>(R.id.edtxtDescripcio)
@@ -79,15 +78,18 @@ class AddActivity : AppCompatActivity() {
 
         if(!isNew)
         {
-            paquet = intent.getSerializableExtra(MainActivity.paquetConstants.PAQUET) as Paquet
+            paquet = intent.getSerializableExtra(Keys.paquetConstants.PAQUET) as Paquet
+            position = intent.getIntExtra(Keys.paquetConstants.SEND_POSITION,0)
             edtNomPaquet.setText(paquet.nomPaquet)
             edtDuracio.setText(paquet.dies.toString())
             edtDescripcio.setText(paquet.descripcio)
             edtZoom.setText(paquet.grausGoogleMaps.toString())
-            val imgPathDetail = getFilesDir().toString()+ "/img/" + paquet.imgDetail
+            imgDetail = paquet.imgDetail
+            imgLlista = paquet.imgLlista
+            val imgPathDetail = getFilesDir().toString()+ "/img/" + imgDetail
             val bitmapDetail = BitmapFactory.decodeFile(imgPathDetail)
             btnAddPrincipalImg?.setImageBitmap(bitmapDetail)
-            val imgPathLlista = getFilesDir().toString()+ "/img/" + paquet.imgLlista
+            val imgPathLlista = getFilesDir().toString()+ "/img/" + imgLlista
             val bitmapLlista = BitmapFactory.decodeFile(imgPathLlista)
             btnAddSecundariaImg?.setImageBitmap(bitmapLlista)
             itinerari = paquet.itinerari
@@ -147,20 +149,25 @@ class AddActivity : AppCompatActivity() {
             val paquet = Paquet(1,edtNomPaquet.text.toString(),edtDescripcio.text.toString(),imgLlista,imgDetail
                 ,selectedTransport.nom,itinerari[0].nom,itinerari[0].longitud,itinerari[0].latitud,edtZoom.text.toString().toDouble(),itinerari[size].nom,edtDuracio.text.toString().toInt(),itinerari)
             val intent = Intent(this,MainActivity::class.java)
-            intent.putExtra(MainActivity.paquetConstants.RETORN, paquet)
+            intent.putExtra(Keys.paquetConstants.RETORN, paquet)
+            intent.putExtra(Keys.paquetConstants.IS_NEW_RETORN,isNew)
+            if(!isNew)
+            {
+                intent.putExtra(Keys.paquetConstants.RETORN_POSITION,position)
+            }
             setResult(RESULT_OK,intent)
             finish()
         }
         btnAddSecundariaImg.setOnClickListener()
         {
             val intent = Intent(this,GalleryActivity::class.java)
-            intent.putExtra(MainActivity.paquetConstants.ADD_TO_IMG,"SECUNDARIA")
+            intent.putExtra(Keys.paquetConstants.ADD_TO_IMG,"SECUNDARIA")
             getResult.launch(intent)
         }
         btnAddPrincipalImg.setOnClickListener()
         {
             val intent = Intent(this,GalleryActivity::class.java)
-            intent.putExtra(MainActivity.paquetConstants.ADD_TO_IMG,"PRINCIPAL")
+            intent.putExtra(Keys.paquetConstants.ADD_TO_IMG,"PRINCIPAL")
             getResult.launch(intent)
         }
 

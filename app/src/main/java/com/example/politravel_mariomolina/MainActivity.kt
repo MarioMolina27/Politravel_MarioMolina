@@ -13,15 +13,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
 
-    object paquetConstants
-    {
-        const val  PAQUET = "PAQUET"
-        const val  RETORN = "RETORN"
-        const val  IMG = "IMG"
-        const val ADD_TO_IMG = "ADD_TO_IMG"
-        const val  IMAGE_BUTTON = "IMG_MAIN"
-        const val IS_NEW = "IS_NEW"
-    }
+
     private var paquets = mutableListOf<Paquet>()
     private val getResult =
         registerForActivityResult(
@@ -29,9 +21,19 @@ class MainActivity : AppCompatActivity() {
         {
             val lstPaquets = findViewById<RecyclerView>(R.id.lstPaquets)
             if(it.resultCode == RESULT_OK){
-                val paquet = it.data?.getSerializableExtra(paquetConstants.RETORN) as Paquet
-                paquets.add(paquet)
-                lstPaquets.adapter?.notifyDataSetChanged()
+                val paquet = it.data?.getSerializableExtra(Keys.paquetConstants.RETORN) as Paquet
+                val isNew = it.data?.getBooleanExtra(Keys.paquetConstants.IS_NEW_RETORN,true)
+                if(isNew == true)
+                {
+                    paquets.add(paquet)
+                    lstPaquets.adapter?.notifyDataSetChanged()
+                }
+                else
+                {
+                    val position = it.data?.getIntExtra(Keys.paquetConstants.RETORN_POSITION,0)
+                    paquets[position!!] = paquet
+                    lstPaquets.adapter?.notifyDataSetChanged()
+                }
             }
             else if(it.resultCode== RESULT_CANCELED){
                 Toast.makeText(this,"Operació d'afegir dades cancel·lada", Toast.LENGTH_SHORT).show()
@@ -63,7 +65,7 @@ class MainActivity : AppCompatActivity() {
         {
             val intent = Intent(this,DetailActivity::class.java)
             val paquet = paquets[lstPaquets.getChildAdapterPosition(it)]
-            intent.putExtra(paquetConstants.PAQUET,paquet)
+            intent.putExtra(Keys.paquetConstants.PAQUET,paquet)
             startActivity(intent)
         }
 
@@ -71,9 +73,11 @@ class MainActivity : AppCompatActivity() {
         {
             val intent = Intent(this,AddActivity::class.java)
             val paquet = paquets[lstPaquets.getChildAdapterPosition(it)]
-            intent.putExtra(paquetConstants.PAQUET,paquet)
-            intent.putExtra(paquetConstants.IS_NEW,false)
-            startActivity(intent)
+            val position = lstPaquets.getChildAdapterPosition(it)
+            intent.putExtra(Keys.paquetConstants.PAQUET,paquet)
+            intent.putExtra(Keys.paquetConstants.IS_NEW,false)
+            intent.putExtra(Keys.paquetConstants.SEND_POSITION,position)
+            getResult.launch(intent)
             true
         }
     }

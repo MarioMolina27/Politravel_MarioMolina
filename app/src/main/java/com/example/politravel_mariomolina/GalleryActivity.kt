@@ -13,7 +13,7 @@ class GalleryActivity : AppCompatActivity() {
 
 
         val intent = getIntent()
-        val activity = intent.getStringExtra(MainActivity.paquetConstants.ADD_TO_IMG) as String
+        val activity = intent.getStringExtra(Keys.paquetConstants.ADD_TO_IMG) as String
         val names = arrayOf("prueba2.jpg","peru.jpg","islasgriegas.jpg","prueba.jpg","tahiti.jpg","paris.jpg")
 
         val grid = findViewById<GridView>(R.id.gridGallery)
@@ -25,8 +25,8 @@ class GalleryActivity : AppCompatActivity() {
         {
             _,_,i,_ ->
              val intent = Intent(this,AddActivity::class.java)
-             intent.putExtra(MainActivity.paquetConstants.IMG,names[i])
-             intent.putExtra(MainActivity.paquetConstants.IMAGE_BUTTON,activity)
+             intent.putExtra(Keys.paquetConstants.IMG,names[i])
+             intent.putExtra(Keys.paquetConstants.IMAGE_BUTTON,activity)
              setResult(RESULT_OK,intent)
              finish()
         }
