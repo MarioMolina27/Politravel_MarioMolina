@@ -11,4 +11,8 @@
         <item name="cornerSizeTopLeft">20dp</item>
         <item name="cornerFamilyBottomRight">rounded</item>
     </style>
+    <style name="AlertDialogTheme" parent="Theme.MaterialComponents.Light.Dialog.Alert">
+        <item name="android:background">@android:color/white</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
 </resources>

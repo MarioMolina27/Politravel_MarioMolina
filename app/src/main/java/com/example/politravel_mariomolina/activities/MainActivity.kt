@@ -16,33 +16,39 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
 
+    companion object {
+        var paquets = mutableListOf<Paquet>()
+    }
 
-    private var paquets = mutableListOf<Paquet>()
     private val getResult =
         registerForActivityResult(
             ActivityResultContracts.StartActivityForResult())
         {
             val lstPaquets = findViewById<RecyclerView>(R.id.lstPaquets)
             if(it.resultCode == RESULT_OK){
+                //En cas que el paquet no s'eliminarà farem les condicions per guardar o modificar un paquet
                 if(it.data?.getBooleanExtra(Keys.paquetConstants.DELETE_PACKAGE,false) == false)
                 {
+                    //Rebrem sempre un paquet i una variable booleana que indica si el paquet existeix o no
                     val paquet = it.data?.getSerializableExtra(Keys.paquetConstants.RETORN) as Paquet
                     val isNew = it.data?.getBooleanExtra(Keys.paquetConstants.IS_NEW_RETORN,true)
-                    if(isNew == true)
+                    if(isNew == true) //En cas que sigui un paquet nou s'afegeix a la llista
                     {
                         paquets.add(paquet)
                     }
-                    else
+                    else // En cas que no sobrescriu la posició amb el nou paquet
                     {
                         val position = it.data?.getIntExtra(Keys.paquetConstants.RETORN_POSITION,0)
                         paquets[position!!] = paquet
                     }
                 }
+                //En cas que eliminem un paquet rebrem la seva posició i l'eliminarem de la llista
                else
                {
                    val position = it.data?.getIntExtra(Keys.paquetConstants.POSTION_DELETE_PACKAGE,-1)
                    if (position != null) {
                        if (position > -1) {
+                           Toast.makeText(this,"Paquet "+paquets[position].nomPaquet+ " eliminat!",Toast.LENGTH_LONG).show()
                            paquets.removeAt(position)
                        }
                        else
@@ -51,12 +57,15 @@ class MainActivity : AppCompatActivity() {
                        }
                    }
                }
+                //Actualitzem l'adapter després de tornar d'alguna activity i rescriurem el json amb la llista
                 lstPaquets.adapter?.notifyDataSetChanged()
+                FilesManager.savePaquets(this,paquets)
             }
             else if(it.resultCode== RESULT_CANCELED){
                 Toast.makeText(this,"Operació d'afegir dades cancel·lada", Toast.LENGTH_SHORT).show()
             }
         }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_llistat)
@@ -71,11 +80,11 @@ class MainActivity : AppCompatActivity() {
         lstPaquets.adapter=adapter
 
 
-
         val btnAdd = findViewById<FloatingActionButton>(R.id.addButton)
 
         btnAdd.setOnClickListener(){
             val intent = Intent(this, AddActivity::class.java)
+
             getResult.launch(intent)
         }
 

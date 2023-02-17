@@ -22,6 +22,9 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
 
+        /**
+         * Rebrem el paquet y omplim tots els camps de l'activity
+         * */
         val intent = getIntent()
         val paquet = intent.getSerializableExtra(Keys.paquetConstants.PAQUET) as Paquet
         val imgDetailTrip = findViewById<ImageView>(R.id.imgDetailTrip)

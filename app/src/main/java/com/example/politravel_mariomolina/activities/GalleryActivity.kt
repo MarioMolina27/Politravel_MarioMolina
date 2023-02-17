@@ -14,7 +14,10 @@ class GalleryActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_gallery)
 
-
+        /**
+         * Rebrem per intent el botò desde el qual hem cridat a l'activity per tal que quan retornem
+         * la imatge sabrem a quin botó hem de col·locar la imatge
+         * */
         val intent = getIntent()
         val activity = intent.getStringExtra(Keys.paquetConstants.ADD_TO_IMG) as String
         val names = arrayOf("prueba2.jpg","peru.jpg","islasgriegas.jpg","prueba.jpg","tahiti.jpg","paris.jpg")
