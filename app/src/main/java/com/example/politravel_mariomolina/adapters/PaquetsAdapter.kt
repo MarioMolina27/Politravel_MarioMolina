@@ -12,7 +12,7 @@ import com.example.politravel_mariomolina.datamodel.Paquet
 import com.example.politravel_mariomolina.R
 
 class PaquetsAdapter(private val context: Context,
-                     private val paquets: MutableList<Paquet>):
+                     private var paquets: MutableList<Paquet>):
     RecyclerView.Adapter<PaquetsAdapter.PaquetsViewHolder>(), View.OnClickListener, View.OnLongClickListener
 {
     private val layout = R.layout.item_layout
@@ -78,6 +78,12 @@ class PaquetsAdapter(private val context: Context,
     override fun onLongClick(view: View?): Boolean {
         longClickListener?.onLongClick(view)
         return true
+    }
+
+    fun setFilteredList(list: MutableList<Paquet>)
+    {
+        this.paquets = list
+        notifyDataSetChanged()
     }
 
 }

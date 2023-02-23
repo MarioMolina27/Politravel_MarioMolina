@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
+import androidx.appcompat.widget.SearchView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,12 +14,15 @@ import com.example.politravel_mariomolina.adapters.PaquetsAdapter
 import com.example.politravel_mariomolina.datamodel.Keys
 import com.example.politravel_mariomolina.datamodel.Paquet
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
     companion object {
         var paquets = mutableListOf<Paquet>()
     }
+    private lateinit var lstPaquets: RecyclerView
+    private lateinit var adapter: PaquetsAdapter
 
     private val getResult =
         registerForActivityResult(
@@ -72,19 +76,33 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(findViewById(R.id.toolbar))
         supportActionBar?.title = "";
 
-        val lstPaquets = findViewById<RecyclerView>(R.id.lstPaquets)
         paquets = FilesManager.getPaquets(this)
-        var adapter = PaquetsAdapter(this,paquets)
+        lstPaquets = findViewById(R.id.lstPaquets)
+        adapter = PaquetsAdapter(this,paquets)
+        var searchView = findViewById<SearchView>(R.id.searchBar)
+
         lstPaquets.hasFixedSize()
         lstPaquets.layoutManager = LinearLayoutManager(this)
         lstPaquets.adapter=adapter
+
+        searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(p0: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                filterList(newText)
+                return true
+            }
+
+        })
+
 
 
         val btnAdd = findViewById<FloatingActionButton>(R.id.addButton)
 
         btnAdd.setOnClickListener(){
             val intent = Intent(this, AddActivity::class.java)
-
             getResult.launch(intent)
         }
 
@@ -113,5 +131,30 @@ class MainActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.llistat_menu, menu)
         return true
+    }
+
+    fun filterList(query: String?)
+    {
+        if(query != null)
+        {
+            val filteredList = mutableListOf<Paquet>()
+            for(i in paquets)
+            {
+                if(i.nomPaquet.lowercase(Locale.ROOT).contains(query))
+                {
+                    filteredList.add(i)
+                }
+            }
+
+            if (filteredList.isEmpty())
+            {
+                Toast.makeText(this,"No existeix cap paquet amb aquest nom",Toast.LENGTH_SHORT).show()
+            }
+            else
+            {
+                adapter.setFilteredList(filteredList)
+            }
+
+        }
     }
 }
