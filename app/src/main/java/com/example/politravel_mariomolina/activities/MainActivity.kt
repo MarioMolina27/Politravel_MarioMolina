@@ -109,7 +109,7 @@ class MainActivity : AppCompatActivity() {
         adapter.setOnClickListener()
         {
             val intent = Intent(this, DetailActivity::class.java)
-            val paquet = paquets[lstPaquets.getChildAdapterPosition(it)]
+            val paquet = adapter.returnList()[lstPaquets.getChildAdapterPosition(it)]
             intent.putExtra(Keys.paquetConstants.PAQUET,paquet)
             startActivity(intent)
         }
@@ -117,7 +117,7 @@ class MainActivity : AppCompatActivity() {
         adapter.setOnLongClickListener()
         {
             val intent = Intent(this, AddActivity::class.java)
-            val paquet = paquets[lstPaquets.getChildAdapterPosition(it)]
+            val paquet = adapter.returnList()[lstPaquets.getChildAdapterPosition(it)]
             val position = lstPaquets.getChildAdapterPosition(it)
             intent.putExtra(Keys.paquetConstants.PAQUET,paquet)
             intent.putExtra(Keys.paquetConstants.IS_NEW,false)

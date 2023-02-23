@@ -86,4 +86,9 @@ class PaquetsAdapter(private val context: Context,
         notifyDataSetChanged()
     }
 
+    fun returnList(): MutableList<Paquet>
+    {
+        return paquets
+    }
+
 }
