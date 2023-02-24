@@ -90,7 +90,8 @@ class AddActivity : AppCompatActivity() {
             Transport("---", R.drawable.flecha),
             Transport("Avió", R.drawable.plane),
             Transport("Bus", R.drawable.bus),
-            Transport("Tren", R.drawable.train)
+            Transport("Tren", R.drawable.train),
+            Transport("Cotxe", R.drawable.coche)
         )
 
 
@@ -127,9 +128,13 @@ class AddActivity : AppCompatActivity() {
             {
                 lstTransport.setSelection(2)
             }
-            else
+            else if (paquet.transport.equals("Tren"))
             {
                 lstTransport.setSelection(3)
+            }
+            else
+            {
+                lstTransport.setSelection(4)
             }
         }
 
@@ -148,9 +153,7 @@ class AddActivity : AppCompatActivity() {
         adapterItinerari.setOnLongClickListener()
         {
             val posicio = lstItinerariAdd.getChildAdapterPosition(it)
-            Toast.makeText(this,"Itinerari "+itinerari[posicio].nom+" eliminat!",Toast.LENGTH_SHORT).show()
-            itinerari.removeAt(posicio)
-            adapterItinerari.notifyDataSetChanged()
+            showDialogDeleteItinerari(posicio,itinerari,adapterItinerari)
             true
         }
 
@@ -272,8 +275,8 @@ class AddActivity : AppCompatActivity() {
     {
         val builder = AlertDialog.Builder(this, R.style.AlertDialogTheme)
 
-        builder.setTitle("¿Eliminar este elemento?")
-        builder.setMessage("¿Estás seguro de que deseas eliminar este elemento?")
+        builder.setTitle("¿Eliminar aquest paquet?")
+        builder.setMessage("¿Estás segur que vols eliminar aquest paquet?")
 
         builder.setPositiveButton("Aceptar") { dialog, which ->
             val intent = Intent(this, MainActivity::class.java)
@@ -285,6 +288,26 @@ class AddActivity : AppCompatActivity() {
 
         builder.setNegativeButton("Cancel·lar") { dialog, which ->
             Toast.makeText(this,"Paquet no eliminat",Toast.LENGTH_SHORT).show()
+        }
+        val dialog = builder.create()
+        dialog.show()
+    }
+
+    fun showDialogDeleteItinerari(posicio: Int,itinerari: MutableList<Itinerari>,adapterItinerari: ItinerariAdapter)
+    {
+        val builder = AlertDialog.Builder(this, R.style.AlertDialogTheme)
+
+        builder.setTitle("¿Eliminar aquest itinerari?")
+        builder.setMessage("¿Estás segur que vols eliminar aquest itinerari?")
+
+        builder.setPositiveButton("Aceptar") { dialog, which ->
+            Toast.makeText(this,"Itinerari "+itinerari[posicio].nom+" eliminat!",Toast.LENGTH_SHORT).show()
+            itinerari.removeAt(posicio)
+            adapterItinerari.notifyDataSetChanged()
+        }
+
+        builder.setNegativeButton("Cancel·lar") { dialog, which ->
+            Toast.makeText(this,"Itinerari no eliminat",Toast.LENGTH_SHORT).show()
         }
         val dialog = builder.create()
         dialog.show()

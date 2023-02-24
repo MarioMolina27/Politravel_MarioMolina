@@ -64,6 +64,10 @@ class DetailActivity : AppCompatActivity() {
         {
             imgTransport.setImageResource(R.drawable.train)
         }
+        else if(paquet.transport.equals("Cotxe"))
+        {
+            imgTransport.setImageResource(R.drawable.coche)
+        }
 
         val displayMetrics = DisplayMetrics()
         windowManager.defaultDisplay.getMetrics(displayMetrics)
