@@ -158,15 +158,10 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
-            if (filteredList.isEmpty())
-            {
-                Toast.makeText(this,"No existeix cap paquet amb aquest nom",Toast.LENGTH_SHORT).show()
-            }
-            else
+            if (!filteredList.isEmpty())
             {
                 adapter.setFilteredList(filteredList)
             }
-
         }
     }
 }
