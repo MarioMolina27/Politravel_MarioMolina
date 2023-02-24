@@ -4,6 +4,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import android.widget.TextView
 import androidx.appcompat.widget.SearchView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -79,25 +82,10 @@ class MainActivity : AppCompatActivity() {
         paquets = FilesManager.getPaquets(this)
         lstPaquets = findViewById(R.id.lstPaquets)
         adapter = PaquetsAdapter(this,paquets)
-        var searchView = findViewById<SearchView>(R.id.searchBar)
 
         lstPaquets.hasFixedSize()
         lstPaquets.layoutManager = LinearLayoutManager(this)
         lstPaquets.adapter=adapter
-
-        searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
-            override fun onQueryTextSubmit(p0: String?): Boolean {
-                return false
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                filterList(newText)
-                return true
-            }
-
-        })
-
-
 
         val btnAdd = findViewById<FloatingActionButton>(R.id.addButton)
 
@@ -130,8 +118,32 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.llistat_menu, menu)
-        return true
+        val  item = menu?.findItem(R.id.search_button)
+        val searchView = item?.actionView as SearchView
+        val titleToolBar = findViewById<TextView>(R.id.titleToolBar)
+
+        searchView.setOnSearchClickListener {
+            titleToolBar.visibility = View.GONE
+        }
+
+        searchView.setOnCloseListener {
+            titleToolBar.visibility = View.VISIBLE
+            false
+        }
+        searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(p0: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                filterList(newText)
+                return true
+            }
+        })
+
+        return super.onCreateOptionsMenu(menu)
     }
+
 
     fun filterList(query: String?)
     {
